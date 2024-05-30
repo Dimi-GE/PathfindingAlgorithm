@@ -1,14 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+
 
 public class GridConstructor : MonoBehaviour
 {
     int gridSize = 0;
 
-    Vector3 OffsetX = new Vector3(0.4f, 0, 0);
-    Vector3 OffsetY = new Vector3(0, 0, 0.4f);
+    Vector3 OffsetX = new Vector3(1f, 0, 0);
+    Vector3 OffsetY = new Vector3(0, 0, 1f);
+    public float cubeSpacing = 1.0f;
+
+    public PathNode[,] grid;
 
     // List to store references to the instantiated Cube instances
     private List<GameObject> cubeInstances = new List<GameObject>();
@@ -23,7 +29,7 @@ public class GridConstructor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void ConstructGrid()
@@ -47,6 +53,8 @@ public class GridConstructor : MonoBehaviour
             // Reference to the GameObject this script is attached to
             GameObject ownerGameObject = this.gameObject;
 
+            grid = new PathNode[gridSize, gridSize];
+
             // Calculate total height of the grid
             float totalHeight = gridSize * OffsetY.z * -1;
 
@@ -59,18 +67,11 @@ public class GridConstructor : MonoBehaviour
 
                     // Instantiate the Cube prefab at the calculated position
                     GameObject cubeInstance = Instantiate(Cube, position, Quaternion.identity);
-                    
-                    // Set the cube's parent to the specified parent object
-                    cubeInstance.transform.SetParent(ownerGameObject.transform, true);
-
-                    // Move the Parent object by position of each Cube added devided by 2
-                    ownerGameObject.transform.position = (ownerGameObject.transform.position - cubeInstance.transform.position) / 2;
-
-                    // Center the parent GameObject vertically based on the grid's total height
-                    ownerGameObject.transform.position = new Vector3(ownerGameObject.transform.position.x, totalHeight / 1.25f, ownerGameObject.transform.position.z);
 
                     // Add the instantiated Cube instance to the list
                     cubeInstances.Add(cubeInstance);
+
+                    grid[i, j] = new PathNode(position, true, cubeInstance); // Initialize as walkable
                 }
             }
         }
@@ -82,7 +83,7 @@ public class GridConstructor : MonoBehaviour
 
     public void SetGridSize(string GridSize)
     {
-        gridSize = int.Parse(GridSize); 
+        gridSize = int.Parse(GridSize);
     }
 
     public void RemoveExistingObjects()
@@ -90,8 +91,27 @@ public class GridConstructor : MonoBehaviour
         foreach (GameObject cubeInstance in cubeInstances)
         {
             Destroy(cubeInstance);
+            ObstaclesHandler obstaclesHandler = this.gameObject.GetComponent<ObstaclesHandler>();
+            if (obstaclesHandler != null)
+            {
+                obstaclesHandler.Index = 0;
+            }
         }
         // Clear the list of Cube instances
         cubeInstances.Clear();
+    }
+
+    public PathNode GetNodeAt(Vector3 position)
+    {
+        foreach (PathNode node in grid)
+        {
+            if (node.position == position)
+            {
+                // Debug.LogWarning("Node position: " + node.position);
+                return node;
+            }
+        }
+        // Debug.LogWarning("Node not found at position: " + position);
+        return null;
     }
 }

@@ -8,9 +8,14 @@ public class MarkableObject : MonoBehaviour
     UnityEngine.Color startPoint = UnityEngine.Color.green;
     UnityEngine.Color endPoint = UnityEngine.Color.red;
 
+    private GridConstructor gridConstructor;
+    private PathfindingAlgorithm pathfindingAlgorithm;
+
     // Start is called before the first frame update
     void Start()
     {
+        gridConstructor = FindObjectOfType<GridConstructor>();
+        pathfindingAlgorithm = FindObjectOfType<PathfindingAlgorithm>();
         Traversable();
     }
 
@@ -28,6 +33,13 @@ public class MarkableObject : MonoBehaviour
         {
             renderer.material.color = obstacleColor;
         }
+
+        // Get the corresponding PathNode and mark it as not walkable
+        PathNode node = gridConstructor.GetNodeAt(transform.position);
+        if (node != null)
+        {
+            node.isWalkable = false;
+        }
     }
 
     public void Traversable()
@@ -38,16 +50,31 @@ public class MarkableObject : MonoBehaviour
         {
             renderer.material.color = traversableleColor;
         }
+
+        // Get the corresponding PathNode and mark it as not walkable
+        PathNode node = gridConstructor.GetNodeAt(transform.position);
+        if (node != null)
+        {
+            node.isWalkable = true;
+        }
     }
 
     public void StartPoint()
     {
         Index = 2;
         Renderer renderer = GetComponent<Renderer>();
+
         if (renderer != null)
         {
             renderer.material.color = startPoint;
         }
+
+        PathNode node = gridConstructor.GetNodeAt(transform.position);
+        if (node != null)
+        {
+            pathfindingAlgorithm.startNode = node;
+        }
+
     }
 
     public void EndPoint()
@@ -57,6 +84,12 @@ public class MarkableObject : MonoBehaviour
         if (renderer != null)
         {
             renderer.material.color = endPoint;
+        }
+
+        PathNode node = gridConstructor.GetNodeAt(transform.position);
+        if (node != null)
+        {
+            pathfindingAlgorithm.endNode = node;
         }
     }
 }

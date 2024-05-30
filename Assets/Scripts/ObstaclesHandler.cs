@@ -7,7 +7,7 @@ public class ObstaclesHandler : MonoBehaviour
     bool isMarkingObstaclesAllowed = false;
     bool isMarkingStartEndPointsAllowed = false;
     public Camera mainCamera;
-    int Index = 0;
+    public int Index = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -83,6 +83,8 @@ public class ObstaclesHandler : MonoBehaviour
         // Perform a raycast from the mouse cursor position
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
+
+        Debug.Log(Index);
 
         if (Physics.Raycast(ray, out hit))
         {

@@ -159,7 +159,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 425, y: -250}
+  m_AnchoredPosition: {x: 425, y: -175}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &17528853
@@ -205,7 +205,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 17528854}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1653925760}
+        m_TargetAssemblyTypeName: PathfindingAlgorithm, Assembly-CSharp
+        m_MethodName: StartFinding
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &17528854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,7 +292,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -425, y: -250}
+  m_AnchoredPosition: {x: -425, y: -175}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &128585018
@@ -1594,7 +1606,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -390, y: 215}
+  m_AnchoredPosition: {x: -390, y: 150}
   m_SizeDelta: {x: 190, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1390934277
@@ -1767,7 +1779,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -370, y: 190}
+  m_AnchoredPosition: {x: -370, y: 125}
   m_SizeDelta: {x: 230, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1596158414
@@ -1842,6 +1854,7 @@ GameObject:
   - component: {fileID: 1653925755}
   - component: {fileID: 1653925758}
   - component: {fileID: 1653925759}
+  - component: {fileID: 1653925760}
   m_Layer: 0
   m_Name: PathfindingAlgorithmManager
   m_TagString: Untagged
@@ -1861,6 +1874,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4655c42bfdbda2a41808a2881e6b82e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cubeSpacing: 1
 --- !u!4 &1653925756
 Transform:
   m_ObjectHideFlags: 0
@@ -1902,6 +1916,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 963194227}
+--- !u!114 &1653925760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653925754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba963b93ddca11b4d9f0f8bddc3abc62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2077847528
 GameObject:
   m_ObjectHideFlags: 0
@@ -1938,7 +1964,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -370, y: 250}
+  m_AnchoredPosition: {x: -370, y: 175}
   m_SizeDelta: {x: 225, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2077847530
