@@ -16,7 +16,7 @@ public class MarkableObject : MonoBehaviour
     {
         gridConstructor = FindObjectOfType<GridConstructor>();
         pathfindingAlgorithm = FindObjectOfType<PathfindingAlgorithm>();
-        Traversable();
+        // Traversable();
     }
 
     // Update is called once per frame
@@ -73,6 +73,7 @@ public class MarkableObject : MonoBehaviour
         if (node != null)
         {
             pathfindingAlgorithm.startNode = node;
+            Debug.Log(node.position.ToString());
         }
 
     }
@@ -90,6 +91,7 @@ public class MarkableObject : MonoBehaviour
         if (node != null)
         {
             pathfindingAlgorithm.endNode = node;
+            Debug.Log(node.position.ToString());
         }
     }
 }

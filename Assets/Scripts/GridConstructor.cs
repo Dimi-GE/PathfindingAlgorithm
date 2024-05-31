@@ -12,7 +12,8 @@ public class GridConstructor : MonoBehaviour
 
     Vector3 OffsetX = new Vector3(1f, 0, 0);
     Vector3 OffsetY = new Vector3(0, 0, 1f);
-    public float cubeSpacing = 1.0f;
+
+    public Camera mainCamera;
 
     public PathNode[,] grid;
 
@@ -55,15 +56,17 @@ public class GridConstructor : MonoBehaviour
 
             grid = new PathNode[gridSize, gridSize];
 
+            Vector3 startPosition = CalculateGridPosition();
+
             // Calculate total height of the grid
-            float totalHeight = gridSize * OffsetY.z * -1;
+            // float totalHeight = gridSize * OffsetY.z * -1;
 
             for (int i = 0; i < gridSize; i++)
             {
                 for (int j = 0; j < gridSize; j++)
                 {
                     // Calculate the position of the Cube instance
-                    Vector3 position = ownerGameObject.transform.position + OffsetX * i + OffsetY * j;
+                    Vector3 position = startPosition + OffsetX * i + OffsetY * j;
 
                     // Instantiate the Cube prefab at the calculated position
                     GameObject cubeInstance = Instantiate(Cube, position, Quaternion.identity);
@@ -113,5 +116,26 @@ public class GridConstructor : MonoBehaviour
         }
         // Debug.LogWarning("Node not found at position: " + position);
         return null;
+    }
+
+    private Vector3 CalculateGridPosition()
+    {
+        GameObject ownerGameObject = this.gameObject;
+        // Calculate the size of the grid in world units
+        float gridWidth = (gridSize - 1) * OffsetX.x;
+        float gridHeight = (gridSize - 1) * OffsetY.z;
+
+        // Calculate the camera's visible area in world units
+        float camHeight = 2f * mainCamera.orthographicSize;
+        float camWidth = camHeight * mainCamera.aspect;
+
+        // Calculate the starting position to center the grid in the camera's view
+        Vector3 startPosition = new Vector3(
+            mainCamera.transform.position.x - gridWidth / 2,
+            ownerGameObject.transform.position.y,
+            mainCamera.transform.position.z - gridHeight / 2
+        );
+
+        return startPosition;
     }
 }

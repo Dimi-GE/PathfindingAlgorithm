@@ -84,8 +84,6 @@ public class ObstaclesHandler : MonoBehaviour
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        Debug.Log(Index);
-
         if (Physics.Raycast(ray, out hit))
         {
             MarkableObject MarkableObjectRef = hit.collider.gameObject.GetComponent<MarkableObject>();
