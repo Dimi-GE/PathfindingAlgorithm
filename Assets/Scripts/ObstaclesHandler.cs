@@ -7,12 +7,13 @@ public class ObstaclesHandler : MonoBehaviour
     bool isMarkingObstaclesAllowed = false;
     bool isMarkingStartEndPointsAllowed = false;
     public Camera mainCamera;
+    PathfindingAlgorithm pathfindingAlgorithm;
     public int Index = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        pathfindingAlgorithm = FindObjectOfType<PathfindingAlgorithm>();
     }
 
     // Update is called once per frame
@@ -63,6 +64,7 @@ public class ObstaclesHandler : MonoBehaviour
                 {
                     Index = 1;
                     MarkableObjectRef.Traversable();
+                    pathfindingAlgorithm.ResetPath();
                 }
                 else if (MarkableObjectRef.Index == 2)
                 {
@@ -96,6 +98,7 @@ public class ObstaclesHandler : MonoBehaviour
             {
                 Index++;
                 MarkableObjectRef.EndPoint();
+                pathfindingAlgorithm.StartFinding();
             }
         }
     }
