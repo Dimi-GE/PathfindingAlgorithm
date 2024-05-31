@@ -5,8 +5,8 @@ public class CameraController : MonoBehaviour
     public float moveSpeed = 10f;
     public float zoomSpeed = 10f;
     public float rotationSpeed = 5f;
-    public float minZoom = 5f;
-    public float maxZoom = 50f;
+    // public float minZoom = 5f;
+    // public float maxZoom = 50f;
 
     private Vector3 dragOrigin;
     private bool isDragging = false;
@@ -15,7 +15,7 @@ public class CameraController : MonoBehaviour
     {
         HandleMovement();
         HandleRotation();
-        HandleZoom();
+        // HandleZoom();
     }
 
     private void HandleMovement()
@@ -33,6 +33,7 @@ public class CameraController : MonoBehaviour
         transform.Translate(direction * moveSpeed * Time.deltaTime, Space.World);
     }
 
+    /*
     private void HandleZoom()
     {
         float scroll = Input.GetAxis("Mouse ScrollWheel");
@@ -41,7 +42,7 @@ public class CameraController : MonoBehaviour
         // Modify the field of view for zooming in/out
         Camera.main.fieldOfView = Mathf.Clamp(Camera.main.fieldOfView - zoom, minZoom, maxZoom);
     }
-
+    */
     private void HandleRotation()
     {
         if (Input.GetMouseButtonDown(1))
